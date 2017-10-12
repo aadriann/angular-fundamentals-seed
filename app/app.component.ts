@@ -1,5 +1,18 @@
 import { Component } from '@angular/core';
 
+interface Child{
+  name: string,
+  age: number
+}
+
+interface Passenger {
+  id: number,
+  fullname: string,
+  checkedIn: boolean,
+  checkInDate: number | null, // ? same that use | null
+  children: Child[] | null
+}
+
 @Component({
   selector: 'app-root',
   styleUrls: ['app.component.scss'], // Contain a reference of our Sass file
@@ -20,7 +33,7 @@ import { Component } from '@angular/core';
         <!--<input 
         type="text" 
         [(ngModel)] = "name">-->
-      <input 
+      <!--<input 
         type="text" 
         [value] = "name"
         (input)="handleChange($event.target.value)">
@@ -33,33 +46,124 @@ import { Component } from '@angular/core';
 
       <div *ngIf="name.length > 2">
         Searching for... {{ name }}
-      </div>
+      </div>-->
       <!--<div>
         {{ numberOne + numberTwo }}
       </div>
       <div>
         {{ isHappy ? ':)' : ':(' }}
       </div>-->
+      <!-- NgFor Lesson -->
+      <h3>Airline Passengers</h3>
+      <ul>
+      <!--Template element simple -->
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+            class="status"
+            [class.checked-in]="passenger.checkedIn">
+          </span>
+          {{ i }}: {{ passenger.fullname }}
+          <p>{{ passenger | json }}</p>
+          <div>
+            Check In date: 
+            {{ passenger.checkInDate ? (passenger.checkInDate | date: 'yMMMMd' | uppercase) : 'Not checked in' }}
+          </div>
+          <div class="children">
+          <!-- Safe navigation: ? evaluate the expression behind the '?' avoid mistakes -->
+            Children: {{ passenger.children?.length || 0 }}
+          </div>
+        </li>
+      </ul>
+
+     <!--<h3>Airline Passengers</h3>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+            class="status"
+            [ngClass]="{ 
+              'checked-in': passenger.checkedIn,
+              'checked-out': !passenger.checkedIn
+            }">
+          </span>
+          {{ i }}: {{ passenger.fullname }}
+        </li>
+      </ul>
+      
+      ngstyle lesson
+      <h3>Airline Passengers</h3>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+            class="status"
+            [style.backgroundColor]="(passenger.checkedIn ? '#2ecc71' : '#c0392b')">
+          </span>
+          {{ i }}: {{ passenger.fullname }}
+        </li>
+      </ul>
+      <h3>Airline Passengers</h3>
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span 
+            class="status"
+            [ngStyle]="{
+              backgroundColor: (passenger.checkedIn ? '#2ecc71' : '#c0392b')
+            }">
+          </span>
+          {{ i }}: {{ passenger.fullname }}
+        </li>
+      </ul>-->
     </div>
     `
 })
 export class AppComponent {
-  title: string;
+  /*title: string;
   name: string = '';
   logo: string = 'img/logo.svg';
   numberOne: number = 1;
   numberTwo: number = 2;
-  isHappy: boolean = true;
+  isHappy: boolean = true;*/
 
-  constructor() {
+  /*constructor() {
     this.title = 'Ultimate Angular';
-  }
+  }*/
 
   /*handleClick(value: string) {
     console.log(value);
   }*/
-  handleChange(value: string) {
+  /*handleChange(value: string) {
     this.name = value;
     console.log(event);
-  }
+  }*/
+  // NgFor Lesson
+  passengers: Passenger[] = [{
+    id: 1,
+    fullname: 'Stephen',
+    checkedIn: true,
+    checkInDate: 1490742000000,
+    children: null
+  }, {
+    id: 2,
+    fullname: 'Rose',
+    checkedIn: false,
+    checkInDate: null,
+    children: [{ name: 'Ted', age: 12 },{ name: 'Chloe', age: 7 }]
+  }, {
+    id: 3,
+    fullname: 'James',
+    checkedIn: true,
+    checkInDate: 1491606000000,
+    children: null
+  }, {
+    id: 4,
+    fullname: 'Louise',
+    checkedIn: true,
+    checkInDate: 1488412800000,
+    children: [{ name: 'Jessica', age: 1 }]
+  }, {
+    id: 5,
+    fullname: 'Tina',
+    checkedIn: false,
+    checkInDate: null,
+    children: null
+  }];
 }
