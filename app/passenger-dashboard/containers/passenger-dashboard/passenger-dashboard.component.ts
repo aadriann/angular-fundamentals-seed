@@ -10,6 +10,9 @@ import { Passenger } from '../../models/passenger.interface';
             <passenger-count
                 [items]="passengers">
             </passenger-count>
+            <div *ngFor="let passenger of passengers">
+                {{ passenger.fullname }}
+            </div>
             <passenger-detail
                 *ngFor="let passenger of passengers;"
                 [detail]="passenger"
@@ -24,7 +27,6 @@ export class PassengerDashboardComponent implements OnInit{
     passengers: Passenger[];
     constructor() {}
     ngOnInit() {
-        console.log('ngOnInit');
         this.passengers = [{
             id: 1,
             fullname: 'Stephen',
@@ -64,7 +66,6 @@ export class PassengerDashboardComponent implements OnInit{
             }
             return passenger; 
         });
-        console.log(this.passengers);
     }
     handleRemove(event: Passenger) {
         return this.passengers = this.passengers.filter((passenger: Passenger) => {
