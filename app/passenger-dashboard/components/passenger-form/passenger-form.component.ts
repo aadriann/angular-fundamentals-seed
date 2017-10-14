@@ -138,7 +138,7 @@ export class PassengerFormComponent {
   }
 
   handleSubmit(passenger: Passenger, isValid: boolean) {
-    if(isValid) {
+    if (isValid) {
       this.update.emit(passenger);
     }
   }
