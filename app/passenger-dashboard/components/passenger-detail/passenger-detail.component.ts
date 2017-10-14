@@ -5,7 +5,7 @@ import { Passenger } from '../../models/passenger.interface';
 @Component({
     selector: 'passenger-detail',
     styleUrls: ['passenger-detail.component.scss'],
-    template:`
+    template: `
     <div>
         <span class="status" [class.checked-in]="detail.checkedIn"></span>
         <div *ngIf="editing">
@@ -42,30 +42,28 @@ export class PassengerDetailComponent implements OnChanges, OnInit {
 
     @Output()
     edit: EventEmitter<any> = new EventEmitter();
-    
+
     @Output()
     remove: EventEmitter<any> = new EventEmitter();
 
     editing: boolean = false;
 
-    constructor() {}
+    constructor() { }
 
     ngOnChanges(changes) {
-        if(changes.detail) {
+        if (changes.detail) {
             this.detail = Object.assign({}, changes.detail.currentValue);
         }
-        console.log('ngOnChanges');
     }
 
     ngOnInit() {
-        console.log('ngOnInit');
     }
 
     onNameChange(value: string) {
         this.detail.fullname = value;
     }
     toggleEdit() {
-        if (this.editing){
+        if (this.editing) {
             this.edit.emit(this.detail);
         }
         this.editing = !this.editing;
