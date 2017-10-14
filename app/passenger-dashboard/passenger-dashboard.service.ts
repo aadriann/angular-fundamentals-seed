@@ -25,6 +25,15 @@ export class PassengerDashboardService {
       .catch((error: any) => Observable.throw(error.json())); //-> Observable<Passenger>
   }
 
+  getPassenger(id: number): Observable<Passenger> {
+    return this.http
+      .get(`${PASSENGER_API}/${id}`)
+      //.toPromise()
+      //.then((response: Response) => response.json()) -> Promise<Passenger;
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json())); //-> Observable<Passenger>
+  }
+
   updatePassenger(passenger: Passenger): Observable<Passenger> {
     let headers = new Headers({
       'Content-Type': 'application/json'

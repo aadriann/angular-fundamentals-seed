@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'], // Contain a reference of our Sass file
   template: `
     <div class="app">
-      <passenger-dashboard></passenger-dashboard>
+      <passenger-viewer></passenger-viewer>
     </div>`
 })
 export class AppComponent {}
